@@ -15,17 +15,23 @@ async def start_cmd(message: types.Message):
 
 
 @dp.message()
-async def echo(message: types.Message):
-    text = message.text
-    if text in ['Привет', 'привет', 'hi', 'Hello']:
-        await message.answer('И тебе привет!')
-    elif text in ['Пока', 'пока', 'пакеда', 'До свидания']:
-        await message.answer('И тебе пока!')
-    else:
-        await message.answer(message.text)
+async def echo(message: types.Message, bot: Bot):
+    await bot.send_message(message.from_user.id, 'Ответ')
+    await message.reply(message.text)
+    await message.answer(message.text)
+    # text = message.text
+    # if text in ['Привет', 'привет', 'hi', 'Hello']:
+    #     await message.answer('И тебе привет!')
+    # elif text in ['Пока', 'пока', 'пакеда', 'До свидания']:
+    #     await message.answer('И тебе пока!')
+    # else:
+    #     await message.answer(message.text)
+
 
 async def main():
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
+
 
 # Запуск бота
 asyncio.run(main())
